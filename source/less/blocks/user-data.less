@@ -1,0 +1,284 @@
+.user-data {
+  padding: 41px 41px 40px 39px;
+  margin-top: -2000px;
+
+  color: #000000;
+
+  opacity: 0;
+  transition: margin-top .5s cubic-bezier(0, 0, 0.2, 1),
+    opacity .2s .1s;
+}
+
+.show {
+  margin-top: -350px;
+
+  opacity: 1;
+}
+
+.user-data__title {
+  margin: 0;
+  margin-bottom: 29px;
+
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.user-data__list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.user-data__item {
+  position: relative;
+}
+
+.user-data__item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.user-data__item:last-child {
+  margin-bottom: 18px;
+}
+
+.user-data__item label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.user-data__item input:not([type='checkbox']) {
+  height: 40px;
+  padding: 0 15px;
+  margin-top: 9px;
+
+  border: 1px solid #dddddd;
+}
+
+.user-data__item input:focus {
+  outline: none;
+  border-color: #82b3d9;
+}
+
+.user-data__item p {
+  min-height: 15px;
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 14px;
+  color: #9f2b11;
+}
+
+.user-data__validation {
+  margin-bottom: 7px;
+}
+
+.user-data__validation-title {
+  margin: 0;
+  margin-bottom: 5px;
+
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #777777;
+}
+
+.user-data__validation-list {
+  margin: 0;
+  padding: 0;
+  padding-left: 1px;
+
+  list-style: none;
+}
+
+.user-data__validation-item {
+  position: relative;
+
+  padding-left: 19px;
+
+  font-size: 12px;
+  line-height: 14px;
+  color: #777777;
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+
+    border: 1px solid #777777;
+    border-radius: 50%;
+  }
+
+  &--success {
+    color: #007b1b;
+  }
+
+  &--success::before {
+    border-color: #007b1b;
+  }
+
+  &--success::after {
+    content: '';
+
+    position: absolute;
+    top: 3px;
+    left: 2px;
+
+    width: 10px;
+    height: 9px;
+
+    background-image: url('../img/success.svg');
+  }
+
+  &--error {
+    color: #9f2b11;
+  }
+
+  &--error::before {
+    border-color: #9f2b11;
+  }
+
+  &--error::after {
+    content: '';
+
+    position: absolute;
+    top: 2px;
+    left: 2px;
+
+    width: 10px;
+    height: 9px;
+
+    background-image: url('../img/error.svg');
+  }
+}
+
+.user-data__agreement {
+  margin: 0;
+  margin-bottom: 41px;
+  padding-left: 2px;
+
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.user-data__agreement label {
+  position: relative;
+
+  padding-left: 18px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    top: 1px;
+
+    width: 12px;
+    height: 12px;
+
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+  }
+}
+
+.user-data__agreement-input + label:hover {
+  cursor: pointer;
+}
+
+.user-data__agreement-input:focus + label::before {
+  border-color: #558cb7;
+}
+
+.user-data__agreement-input:checked + label::after {
+  content: '';
+
+  position: absolute;
+  top: 3px;
+  left: 1px;
+
+  width: 10px;
+  height: 9px;
+
+  background-image: url('../img/checked.svg');
+}
+
+.user-data__agreement-input:checked + label::before {
+  background-color: #558cb7;
+  border-color: #558cb7;
+}
+
+.user-data__agreement-link {
+  color: #558cb7;
+
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+}
+
+.user-data__button {
+  display: block;
+  margin: 0 auto;
+}
+
+.user-data__close {
+  position: absolute;
+  top: 38px;
+  right: 47px;
+
+  width: 20px;
+  height: 20px;
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+
+  &::before,
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: -2px;
+
+    width: 24px;
+    height: 3px;
+    margin-top: -2px;
+
+    border-radius: 1px;
+    background-color: #c4c4c4;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover::before,
+  &:hover::after {
+    background-color: #558cb7;
+  }
+}
