@@ -1,6 +1,7 @@
 'use strict';
 
 (function (
+    EventUtil,
     DomUtil,
     Email,
     Name,
@@ -14,11 +15,13 @@
   var Popup = function (onSuccess) {
     this._close = this._close.bind(this);
     this._onSuccess = onSuccess;
+    this._onSend = this._onSend.bind(this);
+    this._onEscapePress = this._onEscapePress.bind(this);
+
     this._email = new Email();
     this._name = new Name();
     this._password = new Password();
     this._repeatPassword = new RepeatPassword();
-    this._onSend = this._onSend.bind(this);
     this._form = new Form(this._onSend);
   };
 
@@ -43,6 +46,7 @@
   };
 
   Popup.prototype._addEventListeners = function () {
+    document.addEventListener('keydown', this._onEscapePress);
     closeButton.addEventListener('click', this._close);
     this._email.addEventListeners();
     this._name.addEventListeners();
@@ -52,6 +56,7 @@
   };
 
   Popup.prototype._removeEventListeners = function () {
+    document.removeEventListener('keydown', this._onEscapePress);
     closeButton.removeEventListener('click', this._close);
     this._email.removeEventListeners();
     this._name.removeEventListeners();
@@ -60,8 +65,13 @@
     this._form.removeEventListeners();
   };
 
+  Popup.prototype._onEscapePress = function (evt) {
+    return EventUtil.isEscapeKey(evt) && this._close();
+  };
+
   window.Popup = Popup;
 })(
+    window.EventUtil,
     window.DomUtil,
     window.Email,
     window.Name,

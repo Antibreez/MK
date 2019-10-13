@@ -2,7 +2,8 @@
 
 (function (
     renderError,
-    clearError
+    clearError,
+    makeRadioMouseDown
 ) {
   var ERROR_MESSAGE = {
     email: 'Пароль не должен совпадать с почтовым адресом',
@@ -11,9 +12,14 @@
   };
 
   var form = document.querySelector('form');
-  var submitButton = document.querySelector('.user-data__button');
+  var nextButton = document.querySelector('.user-data__next')
   var checkbox = document.querySelector('.user-data__agreement-input');
+  var required = document.querySelector('.user-data__required');
+  var additional = document.querySelector('.user-data__additional');
 
+  var radioButtons = additional.querySelectorAll("input[type='radio']");
+  var checkboxes = additional.querySelectorAll("input[type='checkbox']");
+  var textarea = additional.querySelector('textarea');
   var emailInput = document.querySelector('.user-data__email-input');
   var nameInput = document.querySelector('.user-data__name-input');
   var passwordInput = document.querySelector('.user-data__password-input');
@@ -23,6 +29,7 @@
   var isNameValid = false;
   var isPasswordValid = false;
   var isAgree = false;
+  var isRadioChecked = false;
 
   var Form = function (onSend) {
     this.test = this.test.bind(this);
@@ -32,6 +39,11 @@
     this._onNameCheck = this._onNameCheck.bind(this);
     this._onPasswordsCheck = this._onPasswordsCheck.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
+    this._onNextClick = this._onNextClick.bind(this);
+    this._onRadioMouseDown = makeRadioMouseDown();
+    this._addRadioEventListeners = this._addRadioEventListeners.bind(this);
+    this._removeRadioEventListeners = this._removeRadioEventListeners.bind(this);
+    this._onRadioPreventDefault = this._onRadioPreventDefault.bind(this);
   };
 
   Form.prototype.setEmailValid = function () {
@@ -62,11 +74,17 @@
   Form.prototype.addEventListeners = function () {
     checkbox.addEventListener('change', this._onChange);
     form.addEventListener('submit', this._onSubmit);
+    nextButton.addEventListener('click', this._onNextClick);
+
+    radioButtons.forEach(this._addRadioEventListeners);
   };
 
   Form.prototype.removeEventListeners = function () {
     checkbox.removeEventListener('change', this._onChange);
     form.removeEventListener('submit', this._onSubmit);
+    nextButton.removeEventListener('click', this._onNextClick);
+
+    radioButtons.forEach(this._removeRadioEventListeners);
   };
 
   Form.prototype.test = function () {
@@ -79,12 +97,12 @@
         && this._isNameDifferPassword()
         && this._isPasswordsEqual()
     ) {
-      if (submitButton.hasAttribute('disabled')) {
-        submitButton.removeAttribute('disabled');
+      if (nextButton.hasAttribute('disabled')) {
+        nextButton.removeAttribute('disabled');
       }
     } else {
-      if (!submitButton.hasAttribute('disabled')) {
-        submitButton.setAttribute('disabled', '');
+      if (!nextButton.hasAttribute('disabled')) {
+        nextButton.setAttribute('disabled', '');
       }
     }
 
@@ -98,13 +116,31 @@
   };
 
   Form.prototype.clear = function () {
-    if (!submitButton.hasAttribute('disabled')) {
-      submitButton.setAttribute('disabled', '');
+    if (!nextButton.hasAttribute('disabled')) {
+      nextButton.setAttribute('disabled', '');
     }
 
     if (checkbox.checked) {
       checkbox.checked = !checkbox.checked;
       isAgree = false;
+    }
+
+    radioButtons.forEach(function (radio) {
+      radio.checked = false;
+    });
+
+    checkboxes.forEach(function (checkbox) {
+      checkbox.checked = false;
+    });
+
+    textarea.value = '';
+
+    if (required.classList.contains('visually-hidden')) {
+      required.classList.remove('visually-hidden');
+    }
+
+    if (!additional.classList.contains('visually-hidden')) {
+      additional.classList.add('visually-hidden');
     }
   };
 
@@ -168,8 +204,28 @@
     this._onSend();
   };
 
+  Form.prototype._onNextClick = function () {
+    required.classList.add('visually-hidden');
+    additional.classList.remove('visually-hidden');
+  };
+
+  Form.prototype._onRadioPreventDefault = function (evt) {
+    evt.preventDefault();
+  };
+
+  Form.prototype._addRadioEventListeners = function (radio) {
+    radio.parentNode.addEventListener('mousedown', this._onRadioMouseDown);
+    radio.addEventListener('click', this._onRadioPreventDefault);
+  };
+
+  Form.prototype._removeRadioEventListeners = function (radio) {
+    radio.parentNode.removeEventListener('mousedown', this._onRadioMouseDown);
+    radio.removeEventListener('click', this._onRadioPreventDefault);
+  };
+
   window.Form = Form;
 })(
     window.DomUtil.renderError,
     window.DomUtil.clearError,
+    window.EventUtil.make.makeRadioMouseDown
 );

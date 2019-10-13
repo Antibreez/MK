@@ -3,6 +3,24 @@
 (function () {
   var DEBOUNCE_DELAY = 1000;
 
+  var makeRadioMouseDown = function () {
+    return function (evt) {
+      evt.preventDefault();
+
+      var radio = evt.target.parentNode.querySelector('input');
+
+      var onMouseUp = function (upEvt) {
+        upEvt.preventDefault();
+
+        radio.checked = !radio.checked;
+
+        radio.parentNode.removeEventListener('mouseup', onMouseUp);
+      }
+
+      radio.parentNode.addEventListener('mouseup', onMouseUp);
+    };
+  };
+
   window.EventUtil = {
     isEscapeKey: function (evt) {
       return evt.key === 'Esc' || evt.key === 'Escape';
@@ -22,6 +40,10 @@
 
     isNotTarget: function (evt, element) {
       return evt.target !== element;
+    },
+
+    make: {
+      makeRadioMouseDown: makeRadioMouseDown
     },
 
     debounce: function (onDelay, delay) {

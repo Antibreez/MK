@@ -9,7 +9,7 @@
   <body>
     <section class="registration">
       <button class="registration__button  button">Регистрация</button>
-      <div class="registration__user-data  user-data hidden">
+      <div class="registration__user-data  user-data">
         <h2 class="user-data__title">Регистрация</h2>
         <form novalidate="">
           <div class="user-data__required">
@@ -66,7 +66,58 @@
               </label>
               <a class="user-data__agreement-link" href="#">Пользовательского соглашения</a>
             </p>
-            <input class="user-data__button  button" type="submit" value="Зарегистрироваться" disabled="">
+            <input class="user-data__next  button" type="button" value="Далее" disabled="">
+          </div>
+          <div class="user-data__additional  visually-hidden">
+            <ul class="user-data__list">
+              <li class="user-data__item  user-data__gender">
+                <h3>Пол</h3>
+                <label>
+                  <input class="visually-hidden" type="radio" onmousedown="this.isChecked=this.checked" onclick="this.checked=!this.isChecked" name="gender" value="male"><span>Мужской
+                </span></label>
+                <label>
+                  <input class="visually-hidden" type="radio" name="gender" value="female"><span>Женский</span>
+                </label>
+              </li>
+              <li class="user-data__item  user-data__education">
+                <h3>Образование</h3>
+                <label>
+                  <input class="visually-hidden" type="radio" name="education" value="incomplete secondary"><span>Незаконченное среднее
+                </span></label>
+                <label>
+                  <input class="visually-hidden" type="radio" name="education" value="secondary"><span>Среднее</span>
+                </label>
+                <label>
+                  <input class="visually-hidden" type="radio" name="education" value="incomplete higher"><span>Незаконченное высшее</span>
+                </label>
+                <label>
+                  <input class="visually-hidden" type="radio" name="education" value="higher"><span>Высшее</span>
+                </label>
+                <label>
+                  <input class="visually-hidden" type="radio" name="education" value="academic degree"><span>Ученая степень</span>
+                </label>
+              </li>
+              <li class="user-data__item  user-data__about">
+                <h3>Расскажите о себе</h3>
+                <textarea name="about"></textarea>
+              </li>
+              <li class="user-data__item  user-data__subscribe">
+                  <h3>Подпишитесь на рубрики</h3>
+                  <label>
+                    <input class="visually-hidden" type="checkbox" name="subscribe1" value="politics"><span>Политика</span>
+                  </label>
+                  <label>
+                    <input class="visually-hidden" type="checkbox" name="subscribe2" value="incidents"><span>Происшествия</span>
+                  </label>
+                  <label>
+                    <input class="visually-hidden" type="checkbox" name="subscribe3" value="society"><span>Общество</span>
+                  </label>
+                  <label>
+                    <input class="visually-hidden" type="checkbox" name="subscribe4" value="sport"><span>Спорт</span>
+                  </label>
+                </li>
+            </ul>
+            <input class="user-data__submit  button" type="submit" value="Зарегистрироваться">
           </div>
         </form>
         <button class="user-data__close" type="button"></button>

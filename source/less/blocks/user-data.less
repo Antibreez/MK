@@ -53,7 +53,8 @@
   line-height: 16px;
 }
 
-.user-data__item input:not([type='checkbox']) {
+.user-data__item input[type='password'],
+.user-data__item input[type='text'] {
   height: 40px;
   padding: 0 15px;
   margin-top: 9px;
@@ -232,7 +233,8 @@
   }
 }
 
-.user-data__button {
+.user-data__submit,
+.user-data__next {
   display: block;
   margin: 0 auto;
 }
@@ -281,4 +283,132 @@
   &:hover::after {
     background-color: #558cb7;
   }
+}
+
+.user-data__additional h3 {
+  margin: 0;
+  margin-bottom: 9px;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.user-data__additional li:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.user-data__gender span,
+.user-data__education span {
+  position: relative;
+
+  padding-left: 19px;
+
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    width: 14px;
+    height: 14px;
+    margin-top: -8px;
+
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+  }
+}
+
+.user-data__gender input:focus + span::before,
+.user-data__education input:focus + span::before {
+  border-color: #558cb7;
+}
+
+.user-data__gender input:checked + span::before,
+.user-data__education input:checked + span::before {
+  border-color: #558cb7;
+}
+
+.user-data__gender input:checked + span::after,
+.user-data__education input:checked + span::after {
+  content: '';
+
+  position: absolute;
+  top: 50%;
+  left: 4px;
+
+  width: 6px;
+  height: 6px;
+  margin-top: -4px;
+
+  background-color: #558cb7;
+  border-radius: 50%;
+}
+
+.user-data__item textarea {
+  height: 100px;
+  width: 100%;
+  padding: 5px 10px;
+
+  font-size: 12px;
+  line-height: 14px;
+
+  border: 1px solid #dddddd;
+  resize: none;
+}
+
+.user-data__item textarea:focus {
+  outline: none;
+  border-color: #82b3d9;
+}
+
+.user-data__subscribe span {
+  position: relative;
+
+  padding-left: 19px;
+
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    top: 1px;
+
+    width: 12px;
+    height: 12px;
+
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+  }
+}
+
+.user-data__subscribe input:focus + span::before {
+  border-color: #558cb7;
+}
+
+.user-data__subscribe input:checked + span::after {
+  content: '';
+
+  position: absolute;
+  top: 3px;
+  left: 1px;
+
+  width: 10px;
+  height: 9px;
+
+  background-image: url('../img/checked.svg');
+}
+
+.user-data__subscribe input:checked + span::before {
+  background-color: #558cb7;
+  border-color: #558cb7;
 }
